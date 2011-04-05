@@ -15,6 +15,8 @@ static int hack_initialised = 0;
 
 #define DEBUG 0
 
+static int enabled = 1;
+
 #ifdef DEBUG
 static FILE *fd = NULL;
 #endif
@@ -63,6 +65,7 @@ int
 XNextEvent(Display *display, XEvent *event)
 {
 	int r;
+  int keycode_new;
 
 	if (!hack_initialised)
 		hack_init();
@@ -81,23 +84,35 @@ XNextEvent(Display *display, XEvent *event)
 
 		/* mangle keycodes */
 		keysym = sym_XKeycodeToKeysym(display, keyevent->keycode, 0);
+    keycode_new = keyevent->keycode;
 		switch (keysym) {
 		case XK_Up:
-			keyevent->keycode = 98;
+			keycode_new = 98;
 			break;
 		case XK_Down:
-			keyevent->keycode = 104;
+			keycode_new = 104;
 			break;
 		case XK_Left:
-			keyevent->keycode = 100;
+			keycode_new = 100;
 			break;
 		case XK_Right:
-			keyevent->keycode = 102;
+			keycode_new = 102;
 			break;
 		case XK_Print:
-			keyevent->keycode = 111;
+			keycode_new = 111;
 			break;
+    case XK_Num_Lock:
+      if (event->type == KeyPress) {
+        enabled = ( enabled == 1 ? 0 : 1 );
+#ifdef DEBUG
+        fprintf(fd, "Toggle enabled to %d\n", enabled);
+        fflush(fd);
+#endif
+      }
+      break;
 		}
+
+    keycode_new = keyevent->keycode;
 	}
 
 	return r;
