@@ -82,7 +82,6 @@ XNextEvent(Display *display, XEvent *event)
 		fflush(fd);
 #endif
 
-		/* mangle keycodes */
 		keysym = sym_XKeycodeToKeysym(display, keyevent->keycode, 0);
     keycode_new = keyevent->keycode;
 		switch (keysym) {
@@ -112,7 +111,8 @@ XNextEvent(Display *display, XEvent *event)
       break;
 		}
 
-    keycode_new = keyevent->keycode;
+    if (enabled == 1) 
+      keyevent->keycode = keycode_new;
 	}
 
 	return r;
