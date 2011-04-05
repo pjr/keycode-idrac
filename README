@@ -1,0 +1,5 @@
+This is a hack to allow you to remap the keycodes on X11 so that the iDrac console
+on Linux machines using Java web start works correctly.
+
+See the URL below for more information:
+http://www.anchor.com.au/blog/2011/03/evil-hack-to-make-arrow-and-sysreq-keys-work-with-a-dell-idrac-kvm-and-linux-desktop/

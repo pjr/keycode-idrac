@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Web Start for iDRAC
+Comment=Pre-loaded to change keycode mappings
+Exec=javaws-idrac %f
+Terminal=false
+Type=Application
+NoDisplay=true
+Categories=Network;WebBrowser;
+MimeType=application/x-java-jnlp-file;

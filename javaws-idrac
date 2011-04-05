@@ -1,0 +1,13 @@
+#! /bin/sh
+#
+# Use wrapper to work around Dell iDRAC keycode mangling
+
+HACK=$HOME/local/lib/keycode-hack.so
+
+if [ ! -f $HACK ]
+then
+	echo "ERROR: $HACK not available" 1>&2
+	exit 1
+fi
+
+LD_PRELOAD=$HACK exec /usr/bin/javaws "$@"
